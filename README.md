@@ -8,6 +8,8 @@
 * 📊 **统一日志格式**：使用 `main` 日志格式，输出访问源 IP、请求路径、对应仓库域名，便于分析与监控。
 * ⚙️ **灵活扩展**：可根据需要增减镜像源（如 Google Container Registry、Quay.io 等）。
 
+关于 docker registry 的配置可以参考[官方文档](https://distribution.github.io/distribution/about/configuration/)。
+
 ---
 
 ## 📖 README.md（示例）
