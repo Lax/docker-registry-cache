@@ -2,44 +2,44 @@ version: "3.8"
 
 services:
 
-  registry-github:
-    image: registry:3
-    container_name: registry-github
-    dns:
-      - 8.8.8.8
-    environment:
-      - REGISTRY_PROXY_REMOTEURL=https://ghcr.io
-      - REGISTRY_PROXY_HTTP_TRANSPORT_PROXY_HTTP=http://172.17.0.1:64540
-      - REGISTRY_LOG_LEVEL=info
-      - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry
-      - OTEL_TRACES_EXPORTER=none
-      - REGISTRY_PROXY_HTTP_TRANSPORT_PROXY_HTTPS=http://172.17.0.1:64540
-      - HTTP_PROXY=http://172.17.0.1:64540
-      - HTTPS_PROXY=http://172.17.0.1:64540
-      - ALL_RPOXY=socks://172.17.0.1:64540
-      - REGISTRY_HTTP_ADDR=:5000
-    networks:
-      - registry-net
-    restart: unless-stopped
-    volumes:
-      - /data/cache/registry/hub:/var/lib/registry:rw
-
   registry-hub:
     image: registry:3
     container_name: registry-hub
     dns:
       - 8.8.8.8
     environment:
+      - REGISTRY_HTTP_ADDR=:5000
+      - REGISTRY_PROXY_REMOTEURL=https://registry-1.docker.io
+      - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry
       - REGISTRY_LOG_LEVEL=info
-      - HTTP_PROXY=http://172.17.0.1:64540
+      - OTEL_TRACES_EXPORTER=none
       - REGISTRY_PROXY_HTTP_TRANSPORT_PROXY_HTTP=http://172.17.0.1:64540
       - REGISTRY_PROXY_HTTP_TRANSPORT_PROXY_HTTPS=http://172.17.0.1:64540
-      - REGISTRY_HTTP_ADDR=:5000
+      - HTTP_PROXY=http://172.17.0.1:64540
       - HTTPS_PROXY=http://172.17.0.1:64540
-      - OTEL_TRACES_EXPORTER=none
-      - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry
       - ALL_RPOXY=socks://172.17.0.1:64540
-      - REGISTRY_PROXY_REMOTEURL=https://registry-1.docker.io
+    networks:
+      - registry-net
+    restart: unless-stopped
+    volumes:
+      - /data/cache/registry/hub:/var/lib/registry:rw
+
+  registry-github:
+    image: registry:3
+    container_name: registry-github
+    dns:
+      - 8.8.8.8
+    environment:
+      - REGISTRY_HTTP_ADDR=:5000
+      - REGISTRY_PROXY_REMOTEURL=https://ghcr.io
+      - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry
+      - REGISTRY_LOG_LEVEL=info
+      - OTEL_TRACES_EXPORTER=none
+      - REGISTRY_PROXY_HTTP_TRANSPORT_PROXY_HTTP=http://172.17.0.1:64540
+      - REGISTRY_PROXY_HTTP_TRANSPORT_PROXY_HTTPS=http://172.17.0.1:64540
+      - HTTP_PROXY=http://172.17.0.1:64540
+      - HTTPS_PROXY=http://172.17.0.1:64540
+      - ALL_RPOXY=socks://172.17.0.1:64540
     networks:
       - registry-net
     restart: unless-stopped
@@ -52,16 +52,16 @@ services:
     dns:
       - 8.8.8.8
     environment:
-      - REGISTRY_PROXY_REMOTEURL=https://nvcr.io
-      - REGISTRY_LOG_LEVEL=info
       - REGISTRY_HTTP_ADDR=:5000
-      - REGISTRY_PROXY_HTTP_TRANSPORT_PROXY_HTTP=http://172.17.0.1:64540
+      - REGISTRY_PROXY_REMOTEURL=https://nvcr.io
+      - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry
+      - REGISTRY_LOG_LEVEL=info
       - OTEL_TRACES_EXPORTER=none
+      - REGISTRY_PROXY_HTTP_TRANSPORT_PROXY_HTTP=http://172.17.0.1:64540
       - REGISTRY_PROXY_HTTP_TRANSPORT_PROXY_HTTPS=http://172.17.0.1:64540
       - HTTP_PROXY=http://172.17.0.1:64540
-      - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry
-      - ALL_RPOXY=socks://172.17.0.1:64540
       - HTTPS_PROXY=http://172.17.0.1:64540
+      - ALL_RPOXY=socks://172.17.0.1:64540
     networks:
       - registry-net
     restart: unless-stopped
