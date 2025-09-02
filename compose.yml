@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
 
   registry-hub:
@@ -11,6 +9,7 @@ services:
       - REGISTRY_HTTP_ADDR=:5000
       - REGISTRY_PROXY_REMOTEURL=https://registry-1.docker.io
       - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry
+      - REGISTRY_PROXY_TTL=720h
       - REGISTRY_LOG_LEVEL=info
       - OTEL_TRACES_EXPORTER=none
       - REGISTRY_PROXY_HTTP_TRANSPORT_PROXY_HTTP=http://172.17.0.1:64540
@@ -33,6 +32,7 @@ services:
       - REGISTRY_HTTP_ADDR=:5000
       - REGISTRY_PROXY_REMOTEURL=https://ghcr.io
       - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry
+      - REGISTRY_PROXY_TTL=720h
       - REGISTRY_LOG_LEVEL=info
       - OTEL_TRACES_EXPORTER=none
       - REGISTRY_PROXY_HTTP_TRANSPORT_PROXY_HTTP=http://172.17.0.1:64540
@@ -55,6 +55,7 @@ services:
       - REGISTRY_HTTP_ADDR=:5000
       - REGISTRY_PROXY_REMOTEURL=https://nvcr.io
       - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry
+      - REGISTRY_PROXY_TTL=720h
       - REGISTRY_LOG_LEVEL=info
       - OTEL_TRACES_EXPORTER=none
       - REGISTRY_PROXY_HTTP_TRANSPORT_PROXY_HTTP=http://172.17.0.1:64540
