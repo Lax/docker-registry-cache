@@ -77,6 +77,9 @@ docker pull registry-1.docker.io/library/ubuntu:22.04
     "registry-mirrors": [
         "http://registry-1.docker.io"
     ],
+    "insecure-registries": [
+        "registry-1.docker.io"
+    ],
 ```
 ---
 
